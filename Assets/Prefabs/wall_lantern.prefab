@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09c298a7cf6e304ca6d2e165972ace2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  light: {fileID: 5217662380380874207}
-  flickerSpeed: 1
+  lantern: {fileID: 5217662380380874207}
+  flickerSpeed: 10
   minIntensity: 1
   maxIntensity: 2
+  minRange: 0.8
+  maxRange: 1.2
 --- !u!1 &8524752841121343865
 GameObject:
   m_ObjectHideFlags: 0

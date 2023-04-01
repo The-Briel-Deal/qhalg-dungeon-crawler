@@ -498,6 +498,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506010114}
     m_Modifications:
+    - target: {fileID: -3368380797527209809, guid: b16e5e2b9c2686f43b4b05cbf994f03d, type: 3}
+      propertyPath: flickerSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 165327752022469988, guid: b16e5e2b9c2686f43b4b05cbf994f03d, type: 3}
       propertyPath: m_RootOrder
       value: 0
