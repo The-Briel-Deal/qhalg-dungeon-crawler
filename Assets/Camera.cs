@@ -15,9 +15,26 @@ public class Camera : MonoBehaviour
 
     void Update()
     {
+        if (positionMatrix == null)
+        {
+            positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
+        }
+        // print(GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix);
         if (Input.GetKeyDown(KeyCode.W))
         {
-            moveForward();
+            move(0);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            move(270);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            move(180);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            move(90);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -43,7 +60,7 @@ public class Camera : MonoBehaviour
         }
     }
 
-    void moveForward()
+    void move(int directionAdjustment)
     {
         for (int i = 0; i < positionMatrix.GetLength(0); i++)
         {
@@ -51,12 +68,14 @@ public class Camera : MonoBehaviour
             {
                 if (positionMatrix[i, j] == 1)
                 {
-                    float direction = (int)(transform.rotation.eulerAngles.y) / 90;
+                    float direction = (((int)(transform.rotation.eulerAngles.y)+directionAdjustment) / 90) % 4;
+                    print(direction);
                     if (direction == 0)
                     {
                         // if position we are moving to is a wall, do not move there.
                         if (positionMatrix[i, j + 1] == 2)
                         {
+                            print("0");
                             return;
                         }
                         positionMatrix[i, j + 1] = 1;
@@ -66,6 +85,7 @@ public class Camera : MonoBehaviour
                         // if position we are moving to is a wall, do not move there.
                         if (positionMatrix[i+1, j] == 2)
                         {
+                            print("1");
                             return;
                         }
                         positionMatrix[i + 1, j] = 1;
@@ -74,11 +94,13 @@ public class Camera : MonoBehaviour
                     {
                         if (j - 1 < 0)
                         {
+                            print("2");
                             return;
                         }
                         // if position we are moving to is a wall, do not move there.
                         if (positionMatrix[i, j - 1] == 2)
                         {
+                            print("3");
                             return;
                         }
                         positionMatrix[i, j - 1] = 1;
@@ -104,6 +126,8 @@ public class Camera : MonoBehaviour
             }
         }
     }
+    
+
     void turn(int degrees)
     {
         transform.Rotate(0, degrees, 0);
