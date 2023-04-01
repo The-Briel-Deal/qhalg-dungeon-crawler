@@ -60,6 +60,8 @@ public class Camera : MonoBehaviour
             {
                 if (positionMatrix[i, j] == 1)
                 {
+                    float direction = (int)(transform.rotation.y) / 90;
+                    print(direction);
                     positionMatrix[i, j + 1] = 1;
                     positionMatrix[i, j] = 0;
                     return;
