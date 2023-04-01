@@ -54,19 +54,47 @@ public class Camera : MonoBehaviour
                     float direction = (int)(transform.rotation.eulerAngles.y) / 90;
                     if (direction == 0)
                     {
+                        // if position we are moving to is a wall, do not move there.
+                        if (positionMatrix[i, j + 1] == 2)
+                        {
+                            return;
+                        }
                         positionMatrix[i, j + 1] = 1;
                         positionMatrix[i, j] = 0;
                     } else if (direction == 1)
                     {
+                        // if position we are moving to is a wall, do not move there.
+                        if (positionMatrix[i+1, j] == 2)
+                        {
+                            return;
+                        }
                         positionMatrix[i + 1, j] = 1;
                         positionMatrix[i, j] = 0;
                     } else if (direction == 2)
                     {
+                        if (j - 1 < 0)
+                        {
+                            return;
+                        }
+                        // if position we are moving to is a wall, do not move there.
+                        if (positionMatrix[i, j - 1] == 2)
+                        {
+                            return;
+                        }
                         positionMatrix[i, j - 1] = 1;
                         positionMatrix[i, j] = 0;
                     }
                     else if (direction == 3)
                     {
+                        if (i - 1 < 0)
+                        {
+                            return;
+                        }
+                        // if position we are moving to is a wall, do not move there.
+                        if (positionMatrix[i - 1, j] == 2)
+                        {
+                            return;
+                        }
                         positionMatrix[i - 1, j] = 1;
                         positionMatrix[i, j] = 0;
                     }

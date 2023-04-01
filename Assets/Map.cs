@@ -14,6 +14,7 @@ public class Map : MonoBehaviour
             {
                 if (!Physics.Raycast(new Vector3((float)(0.5 + 1*i), 1, (float)(0.5 + 1*j)), Vector3.down, 20f))
                 {
+                    positionMatrix[i, j] = 2;
                     print(string.Format("I: {0}, J: {1}, Bool: {2}", i, j, false));
                 } else
                 {
