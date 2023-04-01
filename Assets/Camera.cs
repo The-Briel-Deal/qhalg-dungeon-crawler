@@ -14,7 +14,7 @@ public class Camera : MonoBehaviour
         //     {
         //     }
         // }
-        positionMatrix[0,0] = 1
+        positionMatrix[0, 0] = 1;
     }
 
     // Update is called once per frame
