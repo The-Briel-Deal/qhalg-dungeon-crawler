@@ -6,7 +6,7 @@ public class Camera : MonoBehaviour
 {
     private const float height = (float)(0.5);
     public int[,] positionMatrix;
-    float time_elapsed = 0;
+    // float time_elapsed = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +17,24 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time_elapsed += Time.deltaTime;
+        /*time_elapsed += Time.deltaTime;
         if (time_elapsed >= 1)
         {
             time_elapsed = 0;
+            Debug.Log("hit 1");
+            turn(90);
+        }*/
+        if (Input.GetKeyDown(KeyCode.W))
+        {
             moveForward();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            turn(90);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            turn(-90);
         }
         for (int i = 0; i < positionMatrix.GetLength(0); i++)
         {
@@ -49,9 +62,13 @@ public class Camera : MonoBehaviour
                 {
                     positionMatrix[i, j + 1] = 1;
                     positionMatrix[i, j] = 0;
-                    break;
+                    return;
                 }
             }
         }
+    }
+    void turn(int degrees)
+    {
+        transform.Rotate(0, degrees, 0);
     }
 }
