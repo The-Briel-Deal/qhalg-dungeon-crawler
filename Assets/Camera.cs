@@ -5,25 +5,16 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     private const float height = (float)(0.5);
-    public int[,] positionMatrix;
+    private int[,] positionMatrix;
     // float time_elapsed = 0;
     // Start is called before the first frame update
     void Start()
     {
-        positionMatrix = new int[50,50];
-        positionMatrix[1,0] = 1;
+        positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        /*time_elapsed += Time.deltaTime;
-        if (time_elapsed >= 1)
-        {
-            time_elapsed = 0;
-            Debug.Log("hit 1");
-            turn(90);
-        }*/
         if (Input.GetKeyDown(KeyCode.W))
         {
             moveForward();
@@ -60,10 +51,26 @@ public class Camera : MonoBehaviour
             {
                 if (positionMatrix[i, j] == 1)
                 {
-                    float direction = (int)(transform.rotation.y) / 90;
-                    print(direction);
-                    positionMatrix[i, j + 1] = 1;
-                    positionMatrix[i, j] = 0;
+                    float direction = (int)(transform.rotation.eulerAngles.y) / 90;
+                    if (direction == 0)
+                    {
+                        positionMatrix[i, j + 1] = 1;
+                        positionMatrix[i, j] = 0;
+                    } else if (direction == 1)
+                    {
+                        positionMatrix[i + 1, j] = 1;
+                        positionMatrix[i, j] = 0;
+                    } else if (direction == 2)
+                    {
+                        positionMatrix[i, j - 1] = 1;
+                        positionMatrix[i, j] = 0;
+                    }
+                    else if (direction == 3)
+                    {
+                        positionMatrix[i - 1, j] = 1;
+                        positionMatrix[i, j] = 0;
+                    }
+
                     return;
                 }
             }
