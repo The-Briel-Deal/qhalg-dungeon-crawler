@@ -4,17 +4,54 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
+
+    public float rotationSpeed;
+    float targetRotation = 0;
+
+    private bool rotating = false;
+
+    public float movementSpeed;
+    Vector3 targetPosition = new Vector3(0,0,0);
+
+    private bool moving = false;
+
     private const float height = (float)(0.5);
     private int[,] positionMatrix;
     // float time_elapsed = 0;
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < positionMatrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < positionMatrix.GetLength(1); j++)
+            {
+                if (positionMatrix[i, j] == 1)
+                {
+                    Vector3 newPos = new Vector3();
+                    newPos.x = (float)(.5 + 1 * i);
+                    newPos.z = (float)(.5 + 1 * j);
+                    newPos.y = height;
+                    transform.position = newPos;
+                    targetPosition = newPos;
+                }
+            }
+        }
         positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
     }
 
     void Update()
     {
+        if (rotating)
+        {
+            float step = rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, targetRotation, 0), step);
+
+            if (transform.rotation.eulerAngles.y == targetRotation)
+            {
+                rotating = false;
+            }
+        }
+
         if (positionMatrix == null)
         {
             positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
@@ -54,7 +91,7 @@ public class Camera : MonoBehaviour
                     newPos.x = (float)(.5 + 1 * i);
                     newPos.z = (float)(.5 + 1 * j);
                     newPos.y = height;
-                    transform.position = newPos;
+                    transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * movementSpeed);
                 }
              }
         }
@@ -130,6 +167,7 @@ public class Camera : MonoBehaviour
 
     void turn(int degrees)
     {
-        transform.Rotate(0, degrees, 0);
+        targetRotation += degrees;
+        rotating = true;
     }
 }
