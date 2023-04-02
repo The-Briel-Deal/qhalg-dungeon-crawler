@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lantern: {fileID: 5217662380380874207}
-  flickerSpeed: 10
+  flickerSpeed: 20
   minIntensity: 1
   maxIntensity: 2
   minRange: 0.8
   maxRange: 1.2
+  minTime: 0.8
+  maxTime: 1
 --- !u!1 &8524752841121343865
 GameObject:
   m_ObjectHideFlags: 0

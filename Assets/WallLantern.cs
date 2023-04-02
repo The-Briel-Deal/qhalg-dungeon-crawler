@@ -10,16 +10,19 @@ public class WallLantern : MonoBehaviour
     [SerializeField] private float maxIntensity = 2;
     [SerializeField] private float minRange = 0.8f;
     [SerializeField] private float maxRange = 1.2f;
+    [SerializeField] private float minTime = 0.5f;
+    [SerializeField] private float maxTime = 1.0f;
 
-    private float oldIntensity;
-    private float oldRange;
     private float targetIntensity;
     private float targetRange;
+    private float targetTime;
 
     private float t = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        NewTime();
         NewIntensity();
         NewRange();
     }
@@ -30,24 +33,28 @@ public class WallLantern : MonoBehaviour
         lantern.intensity = Mathf.Lerp(lantern.intensity, targetIntensity, t);
         lantern.range = Mathf.Lerp(lantern.range, targetRange, t);
 
-        t += 0.5f * flickerSpeed * Time.deltaTime;
+        t += 0.1f * flickerSpeed * Time.deltaTime;
         
-        if (t > 1.0f)
+        if (t > targetTime)
         {
             NewIntensity();
             NewRange();
-            t = 0.0f;
+            NewTime();
         }
     }
 
     void NewIntensity()
     {
-        oldIntensity = lantern.intensity;
         targetIntensity = Random.Range(minIntensity, maxIntensity);
     }
     void NewRange()
     {
-        oldRange = lantern.range;
         targetRange = Random.Range(minRange, maxRange);
+    }
+
+    void NewTime()
+    {
+        t = 0.0f;
+        targetTime = Random.Range(minTime, maxTime);
     }
 }
