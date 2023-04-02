@@ -10,11 +10,14 @@ public class description : MonoBehaviour
     void Start()
     { 
         bool light; 
-        double bh,bd,multiplyer,td=bd*multiplyer
+        double bh,bd,multiplyer,td=bd*multiplyer;
+        bh=0.50 
+        bd=0.20 
+        multiplyer=1
         while(0<bh<100):
-         if light==0;
+         if (light==0):
          bh=bh+td
-         else 
+         else: 
           bh=bh-td    
     }
 
