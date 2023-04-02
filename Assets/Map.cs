@@ -23,6 +23,7 @@ public class Map : MonoBehaviour
             }
         }
         positionMatrix[1, 0] = 1;
+        positionMatrix[1, 3] = 3;
     }
 
     void Update()

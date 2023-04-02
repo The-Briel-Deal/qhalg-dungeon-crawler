@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NotificationSystem : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void clearText()
+    {
+        GetComponent<TMPro.TextMeshProUGUI>().text = "";
+
+    }
+    public void notify(string text) {
+        GetComponent<TMPro.TextMeshProUGUI>().text = text;
+        Invoke("clearText", 2f);
+
+    }
+}

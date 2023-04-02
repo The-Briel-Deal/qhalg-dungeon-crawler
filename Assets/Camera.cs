@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
+    bool inCombat = false;
 
     public float rotationSpeed;
     float targetRotation = 0;
@@ -41,6 +42,10 @@ public class Camera : MonoBehaviour
 
     void Update()
     {
+        if (positionMatrix == null)
+        {
+            positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
+        }
         if (rotating)
         {
             float step = rotationSpeed * Time.deltaTime;
@@ -51,12 +56,11 @@ public class Camera : MonoBehaviour
                 rotating = false;
             }
         }
-
-        if (positionMatrix == null)
+        if (inCombat) {
+            print("incombat");
+        }else
         {
-            positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
-        }
-        // print(GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix);
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             move(0);
@@ -81,22 +85,32 @@ public class Camera : MonoBehaviour
         {
             turn(-90);
         }
+        }
         for (int i = 0; i < positionMatrix.GetLength(0); i++)
         {
-             for(int j = 0; j < positionMatrix.GetLength(1); j++)
-             {
+            for (int j = 0; j < positionMatrix.GetLength(1); j++)
+            {
                 if (positionMatrix[i, j] == 1)
                 {
+                    if (positionMatrix[i, j + 1] == 3 && !inCombat)
+                    {
+                        initiateCombat();
+                    }
                     Vector3 newPos = new Vector3();
                     newPos.x = (float)(.5 + 1 * i);
                     newPos.z = (float)(.5 + 1 * j);
                     newPos.y = height;
                     transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * movementSpeed);
                 }
-             }
+            }
         }
     }
 
+    void initiateCombat()
+    {
+        GameObject.FindGameObjectWithTag("notificationSystem").GetComponent<NotificationSystem>().notify("Combat Start!");
+        inCombat = true;
+    }
     void move(int directionAdjustment)
     {
         for (int i = 0; i < positionMatrix.GetLength(0); i++)
