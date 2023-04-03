@@ -57,7 +57,7 @@ public class Camera : MonoBehaviour
             }
         }
         if (inCombat) {
-            print("incombat");
+            handleCombatLoop();
         }else
         {
 
@@ -94,6 +94,7 @@ public class Camera : MonoBehaviour
                 {
                     if (positionMatrix[i, j + 1] == 3 && !inCombat)
                     {
+                        print("going into combat!");
                         initiateCombat();
                     }
                     Vector3 newPos = new Vector3();
@@ -111,6 +112,13 @@ public class Camera : MonoBehaviour
         GameObject.FindGameObjectWithTag("notificationSystem").GetComponent<NotificationSystem>().notify("Combat Start!");
         inCombat = true;
     }
+
+    void handleCombatLoop() {
+        GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().combatUpdate();
+
+    }
+
+
     void move(int directionAdjustment)
     {
         for (int i = 0; i < positionMatrix.GetLength(0); i++)

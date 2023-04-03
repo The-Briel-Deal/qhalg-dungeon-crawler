@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - map
+  - notificationSystem
+  - combatSystem
+  - canvas
   layers:
   - Default
   - TransparentFX
