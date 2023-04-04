@@ -5,6 +5,7 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     public int[,] positionMatrix;
+    public GameObject skeletonPrefab;
     void Start()
     {
         positionMatrix = new int[50, 50];
@@ -23,7 +24,21 @@ public class Map : MonoBehaviour
             }
         }
         positionMatrix[1, 0] = 1;
-        positionMatrix[1, 3] = 3;
+        spawnEnemy(1, 3);
+    }
+
+    void spawnEnemy(int x, int y)
+    {
+        positionMatrix[x, y] = 3;
+        GameObject skeleton = Instantiate(skeletonPrefab, transform.position, transform.rotation) as GameObject;
+        skeleton.transform.position = new Vector3(x+.5f,0,y+.5f);
+        skeleton.transform.localScale *= .5f;
+        skeleton.transform.Rotate(new Vector3(0, 180, 0));
+        skeleton.transform.SetParent(transform);
+    }
+    void despawnEnemy(int x, int y)
+    {
+        positionMatrix[x, y] = 0;
     }
 
     void Update()
