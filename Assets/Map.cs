@@ -37,10 +37,10 @@ public class Map : MonoBehaviour
                 if (!Physics.Raycast(new Vector3((float)(0.5 + 1*i), 1, (float)(0.5 + 1*j)), Vector3.down, 20f))
                 {
                     positionMatrix[i, j] = new GridObject(2);
-                    print(string.Format("I: {0}, J: {1}, Bool: {2}", i, j, false));
+                    //print(string.Format("I: {0}, J: {1}, Bool: {2}", i, j, false));
                 } else
                 {
-                    print(string.Format("I: {0}, J: {1}, Bool: {2}", i, j, true));
+                    //print(string.Format("I: {0}, J: {1}, Bool: {2}", i, j, true));
                 }
             }
         }
@@ -50,15 +50,18 @@ public class Map : MonoBehaviour
 
     void spawnEnemy(int x, int y)
     {
-        positionMatrix[x, y].Type = 3;
         GameObject skeleton = Instantiate(skeletonPrefab, transform.position, transform.rotation) as GameObject;
         skeleton.transform.position = new Vector3(x+.5f,0,y+.5f);
         skeleton.transform.localScale *= .5f;
         skeleton.transform.Rotate(new Vector3(0, 180, 0));
         skeleton.transform.SetParent(transform);
+        positionMatrix[x, y].Type = 3;
+        positionMatrix[x, y].Object = skeleton;
     }
-    void despawnEnemy(int x, int y)
+    public void despawnEnemy(int x, int y)
     {
         positionMatrix[x, y].Type = 0;
+        Destroy(positionMatrix[x, y].Object);
+        positionMatrix[x, y].Object = null;
     }
 }

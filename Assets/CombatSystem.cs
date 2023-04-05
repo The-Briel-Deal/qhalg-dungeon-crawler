@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CombatSystem : MonoBehaviour
 {
-
+    private Vector2Int positionInCombatWith;
     private float timeSinceLastDefend = 0;
     private float timeSinceLastAttack = 0;
 
@@ -16,6 +16,8 @@ public class CombatSystem : MonoBehaviour
     public GameObject attackButton;
     public GameObject defendButton;
     public Canvas canvas;
+
+    public GameObject player;
 
     public void combatUpdate() {
         timeSinceLastAttack += Time.deltaTime;
@@ -56,13 +58,22 @@ public class CombatSystem : MonoBehaviour
     {
         print("Attack pressed!");
         hitsToKill--;
+        print(hitsToKill);
 
         if (hitsToKill <= 0)
         {
-            Destroy(gameObject);
-            print("The monster was defeated!!");
+            GameObject mapObject = GameObject.FindWithTag("map");
+            if (mapObject != null)
+            {
+                Map map = mapObject.GetComponent<Map>();
+                if (map != null)
+                {
+                    // Call the despawnEnemy method on the Map component
+                    map.despawnEnemy(1, 3);
+                    player.GetComponent<Camera>().inCombat = false;
+                }
+            }
         }
-        
     }
     public void handleDefend()
     {

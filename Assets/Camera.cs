@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    bool inCombat = false;
+    public bool inCombat = false;
 
     public float rotationSpeed;
     float targetRotation = 0;
@@ -22,21 +22,6 @@ public class Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < positionMatrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < positionMatrix.GetLength(1); j++)
-            {
-                if (positionMatrix[i, j].Type == 1)
-                {
-                    Vector3 newPos = new Vector3();
-                    newPos.x = (float)(.5 + 1 * i);
-                    newPos.z = (float)(.5 + 1 * j);
-                    newPos.y = height;
-                    transform.position = newPos;
-                    targetPosition = newPos;
-                }
-            }
-        }
         positionMatrix = GameObject.FindGameObjectWithTag("map").GetComponent<Map>().positionMatrix;
     }
 
@@ -130,7 +115,7 @@ public class Camera : MonoBehaviour
                 if (positionMatrix[i, j].Type == 1)
                 {
                     float direction = (((int)(transform.rotation.eulerAngles.y)+directionAdjustment) / 90) % 4;
-                    print(direction);
+                    //print(direction);
                     if (direction == 0)
                     {
                         // if position we are moving to is a wall, do not move there.
