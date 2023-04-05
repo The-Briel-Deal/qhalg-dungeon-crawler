@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class CombatSystem : MonoBehaviour
 {
-    private Vector2Int positionInCombatWith;
+    public Vector2Int positionInCombatWith;
     private float timeSinceLastDefend = 0;
     private float timeSinceLastAttack = 0;
-
     //parameters
     public float timeBetweenAttacks = 1;
     public float timeBetweenDefends = 1.5f;
@@ -21,6 +20,7 @@ public class CombatSystem : MonoBehaviour
 
     public void combatUpdate() {
         timeSinceLastAttack += Time.deltaTime;
+        print($"bruggga {timeBetweenAttacks} {timeSinceLastAttack}");
         if (timeSinceLastAttack >= timeBetweenAttacks)
         {
             spawnButton(attackButton);

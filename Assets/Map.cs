@@ -46,6 +46,7 @@ public class Map : MonoBehaviour
         }
         positionMatrix[1, 0].Type = 1;
         spawnEnemy(1, 3);
+        spawnEnemy(1, 4);
     }
 
     void spawnEnemy(int x, int y)
