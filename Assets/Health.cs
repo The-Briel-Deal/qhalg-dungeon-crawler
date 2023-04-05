@@ -6,6 +6,6 @@ public class Health : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<TMPro.TextMeshProUGUI>().text = $"Health: {GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().health}";
+        GetComponent<TMPro.TextMeshProUGUI>().text = $"Health: {GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerData>().Health}";
     }
 }

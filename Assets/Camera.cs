@@ -95,6 +95,7 @@ public class Camera : MonoBehaviour
                 {
                     if (positionMatrix[i, j + 1].Type == 3 && !inCombat)
                     {
+                        //We need to find a way to get the gameobject belonging to that "3" code.
                         print("going into combat!");
                         initiateCombat();
                     }
