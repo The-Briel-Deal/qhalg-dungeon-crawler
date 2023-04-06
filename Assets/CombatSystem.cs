@@ -20,7 +20,7 @@ public class CombatSystem : MonoBehaviour
 
     public void combatUpdate() {
         timeSinceLastAttack += Time.deltaTime;
-        print($"bruggga {timeBetweenAttacks} {timeSinceLastAttack}");
+        //print($"bruggga {timeBetweenAttacks} {timeSinceLastAttack}");
         if (timeSinceLastAttack >= timeBetweenAttacks)
         {
             spawnButton(attackButton);
@@ -69,7 +69,7 @@ public class CombatSystem : MonoBehaviour
                 if (map != null)
                 {
                     // Call the despawnEnemy method on the Map component
-                    map.despawnEnemy(1, 3);
+                    map.despawnEnemy(positionInCombatWith.x, positionInCombatWith.y);
                     player.GetComponent<Camera>().inCombat = false;
                 }
             }

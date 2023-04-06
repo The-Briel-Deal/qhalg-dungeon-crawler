@@ -45,16 +45,16 @@ public class Map : MonoBehaviour
             }
         }
         positionMatrix[1, 0].Type = 1;
-        spawnEnemy(1, 3);
-        spawnEnemy(1, 4);
+        spawnEnemy(1, 3, 0);
+        spawnEnemy(3, 6, 90);
     }
 
-    void spawnEnemy(int x, int y)
+    void spawnEnemy(int x, int y, int rotation)
     {
         GameObject skeleton = Instantiate(skeletonPrefab, transform.position, transform.rotation) as GameObject;
         skeleton.transform.position = new Vector3(x+.5f,0,y+.5f);
         skeleton.transform.localScale *= .5f;
-        skeleton.transform.Rotate(new Vector3(0, 180, 0));
+        skeleton.transform.Rotate(new Vector3(0, 180+rotation, 0));
         skeleton.transform.SetParent(transform);
         positionMatrix[x, y].Type = 3;
         positionMatrix[x, y].Object = skeleton;

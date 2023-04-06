@@ -51,6 +51,7 @@ public class Camera : MonoBehaviour
         }
         else
         {
+            //print("test");
             if (Input.GetKeyDown(KeyCode.W)) move(0);
             if (Input.GetKeyDown(KeyCode.A)) move(270);
             if (Input.GetKeyDown(KeyCode.S)) move(180);
@@ -93,9 +94,11 @@ public class Camera : MonoBehaviour
 
     void initiateCombat(int i,int j)
     {
+        print("combat starting!");
         GameObject.FindGameObjectWithTag("notificationSystem").GetComponent<NotificationSystem>().notify("Combat Start!");
         GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().positionInCombatWith.x = i;
         GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().positionInCombatWith.y = j;
+        GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().hitsToKill = 5;
         inCombat = true;
     }
 
