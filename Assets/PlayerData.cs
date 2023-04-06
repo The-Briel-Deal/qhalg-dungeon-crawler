@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    float lightDarkHealthBar = .5f;
+    //Player's health. Defend checks decrease this number.
+    public int Health = 100;
+
     // Start is called before the first frame update
     void Start()
     {
