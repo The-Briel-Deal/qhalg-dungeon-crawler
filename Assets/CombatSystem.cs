@@ -18,6 +18,12 @@ public class CombatSystem : MonoBehaviour
 
     public GameObject player;
 
+    public Music audio;
+
+    private void Start()
+    {
+
+    }
     public void combatUpdate() {
         timeSinceLastAttack += Time.deltaTime;
         //print($"bruggga {timeBetweenAttacks} {timeSinceLastAttack}");
@@ -42,6 +48,7 @@ public class CombatSystem : MonoBehaviour
         myButton.transform.position = new Vector3(Random.Range(0 + rectDims.width, Screen.width - rectDims.width),
             Random.Range(0 + rectDims.height, Screen.height - rectDims.height), 0);
         myButton.transform.SetParent(canvas.transform);
+
 
         //change whatever counter you need to based on which of the two buttons it is.
         if (button == attackButton) timeSinceLastAttack -= timeBetweenAttacks;
@@ -71,6 +78,7 @@ public class CombatSystem : MonoBehaviour
                     // Call the despawnEnemy method on the Map component
                     map.despawnEnemy(positionInCombatWith.x, positionInCombatWith.y);
                     player.GetComponent<Camera>().inCombat = false;
+                    audio.PlayDungeon();
                 }
             }
         }

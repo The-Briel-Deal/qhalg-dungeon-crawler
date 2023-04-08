@@ -6,6 +6,7 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public bool inCombat = false;
+    public Music audio;
 
     public float rotationSpeed;
     float targetRotation = 0;
@@ -100,6 +101,7 @@ public class Camera : MonoBehaviour
         GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().positionInCombatWith.y = j;
         GameObject.FindGameObjectWithTag("combatSystem").GetComponent<CombatSystem>().hitsToKill = 5;
         inCombat = true;
+        audio.PlayBoss();
     }
 
     void handleCombatLoop() {

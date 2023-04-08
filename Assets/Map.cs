@@ -26,6 +26,8 @@ public class Map : MonoBehaviour
 {
     public GridObject[,] positionMatrix;
     public GameObject skeletonPrefab;
+    public GameObject eyePrefab;
+    public GameObject elfPrefab;
     void Start()
     {
         positionMatrix = new GridObject[50, 50];
@@ -45,19 +47,23 @@ public class Map : MonoBehaviour
             }
         }
         positionMatrix[1, 0].Type = 1;
-        spawnEnemy(1, 3, 0);
-        spawnEnemy(3, 6, 90);
+        spawnEnemy(eyePrefab, 1, 3, 0);
+        spawnEnemy(elfPrefab, 6, 6, 90);
+        spawnEnemy(eyePrefab, 8, 3, 0);
     }
 
-    void spawnEnemy(int x, int y, int rotation)
+    void spawnEnemy(GameObject prefab, int x, int y, int rotation)
     {
-        GameObject skeleton = Instantiate(skeletonPrefab, transform.position, transform.rotation) as GameObject;
-        skeleton.transform.position = new Vector3(x+.5f,0,y+.5f);
-        skeleton.transform.localScale *= .5f;
-        skeleton.transform.Rotate(new Vector3(0, 180+rotation, 0));
-        skeleton.transform.SetParent(transform);
+        GameObject obj = Instantiate(prefab, transform.position, transform.rotation);
+        obj.transform.position = new Vector3(x+.5f,0,y+.5f);
+
+        obj.transform.Rotate(new Vector3(-90, 180 + rotation, 0));
+        obj.transform.Translate(new Vector3(0, 0.5f, 0), Space.World);
+        positionMatrix[x, y].Object = obj;
+
         positionMatrix[x, y].Type = 3;
-        positionMatrix[x, y].Object = skeleton;
+
+
     }
     public void despawnEnemy(int x, int y)
     {
